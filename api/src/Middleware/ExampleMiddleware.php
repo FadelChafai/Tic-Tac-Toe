@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fadel
- * Date: 11/30/16
- * Time: 10:10 AM
- */
+
 namespace  App\Middleware;
 
 class ExampleMiddleware

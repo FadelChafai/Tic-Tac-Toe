@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fadel
- * Date: 11/27/16
- * Time: 1:58 PM
- */
 
 namespace App\Middleware;
-
 
 use Slim\Http\Request;
 use Slim\Http\Response;

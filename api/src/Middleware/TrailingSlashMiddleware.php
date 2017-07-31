@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: fadel
- * Date: 12/2/16
- * Time: 5:13 PM
- */
+
 namespace App\Middleware;
 
 use Psr\Http\Message\RequestInterface as Request;
