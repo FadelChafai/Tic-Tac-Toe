@@ -1,0 +1,8 @@
+front/node_modules
+front/dist
+
+api/vendor/*
+api/composer.lock
+
+.php_cs.cache
+.idea

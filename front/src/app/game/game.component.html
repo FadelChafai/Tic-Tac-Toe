@@ -1,0 +1,39 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-3">
+      <br>
+      <h5>Board State</h5>
+      <pre>{{board|json}}</pre>
+      <br>
+      <h5>Rebot</h5>
+      <pre>{{nextMove|json}}</pre>
+    </div>
+    <div class="col-xs-6">
+      <div id="tic-tac-toe">
+        <div class="span3 new_span">
+          <div class="row" id="ptitle">
+            <h1 class="span3">Tic Tac Toe</h1>
+          </div>
+          <ul class="row" id="game">
+            <li  class="btn span1" id="b_00" (click)="move([0,0])"></li>
+            <li  class="btn span1" id="b_01" (click)="move([0,1])"></li>
+            <li  class="btn span1" id="b_02" (click)="move([0,2])"></li>
+            <li  class="btn span1" id="b_10" (click)="move([1,0])"></li>
+            <li  class="btn span1" id="b_11" (click)="move([1,1])"></li>
+            <li  class="btn span1" id="b_12" (click)="move([1,2])"></li>
+            <li  class="btn span1" id="b_20" (click)="move([2,0])"></li>
+            <li  class="btn span1" id="b_21" (click)="move([2,1])"></li>
+            <li  class="btn span1" id="b_22" (click)="move([2,2])"></li>
+          </ul>
+          <div class="clr">&nbsp;</div>
+          <div class="row">
+            <button id="reset" class="btn-success btn span3" (click)="reset()">Restart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-xs-3">
+      <div id="msg"></div>
+    </div>
+  </div>
+</div>
