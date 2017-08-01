@@ -14,7 +14,7 @@ class TrailingSlashMiddleware {
      * @param  Response $response PSR7 response object
      * @param  callable          $next     Next middleware callable
      *
-     * @return ResponseInterface PSR7 response object
+     * @return Response PSR7 response object
      */
     public function __invoke(Request $request, Response $response, callable $next)
     {
