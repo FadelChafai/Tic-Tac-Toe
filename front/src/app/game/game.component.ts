@@ -16,6 +16,11 @@ export class GameComponent {
   nextMove: IMove;
   waitingRobot = false;
   errorMessage = '';
+  gameOver = false;
+  /**
+   * Board dimensions
+   */
+  dimensions = 3;
 
   board = [
     ['', '', ''],
@@ -24,6 +29,35 @@ export class GameComponent {
   ];
 
   constructor(private _moveService: MoveService) {}
+
+
+    move(elem): void {
+
+        /**
+         * No play after the game is over
+         */
+        if ( this.gameOver ) {
+            return;
+        }
+
+        /**
+         * Check if waiting for the Robot move
+         */
+        if (this.waitingRobot === true) {
+            $('#msg').html('').html('<div class="alert alert-warning"><strong>Warning!</strong> Waiting for Robot move</div>');
+            console.log('Waiting for Robot');
+            return;
+        }
+
+        if (this.doMove([elem[0], elem[1]], this.nextMoveUnit, true)) {
+
+            /**
+             * Request the next move
+             */
+
+            this.getRobotMove();
+        }
+  }
 
   doMove(box, unit: string, prevent): boolean {
 
@@ -57,6 +91,14 @@ export class GameComponent {
       }
 
       /**
+       * Check winner after move
+       */
+
+      if ( this.checkWinner(box[0], box[1], unit ) ) {
+          return false;
+      }
+
+      /**
        * Prevent playing twice
        */
       this.waitingRobot = prevent;
@@ -64,26 +106,64 @@ export class GameComponent {
       return true;
   }
 
-  move(elem): void {
+  checkWinner(x, y, unit) {
 
-    /**
-     * Check if waiting for the Robot move
-     */
-    if (this.waitingRobot === true) {
-      $('#msg').html('').html('<div class="alert alert-warning"><strong>Warning!</strong> Waiting for Robot move</div>');
-      console.log('Waiting for Robot');
-      return;
-    }
+      let unitWin = false;
 
-    if (this.doMove([elem[0], elem[1]], this.nextMoveUnit, true)) {
+      /* check cols */
+      for (let i = 0; i < this.dimensions; i++) {
+          if (this.board[x][i] !== unit) {
+              break;
+          }
+          if ( i === this.dimensions - 1 ) {
+              unitWin = true;
+          }
+      }
 
-      /**
-       * Request the next move
-       */
+      /* check row s*/
+      for ( let i = 0; i < this.dimensions; i++) {
+          if (this.board[i][y] !== unit) {
+              break;
+          }
+          if ( i === this.dimensions - 1 ) {
+              unitWin = true;
+          }
+      }
 
-      this.getRobotMove();
-    }
+      /* check diag */
+      if (x === y) {
+          /* we're on a diagonal */
+          for ( let i = 0; i < this.dimensions; i++) {
+              if ( this.board[i][i] !== unit) {
+                  break;
+              }
+              if ( i === this.dimensions - 1 ) {
+                  unitWin = true;
+              }
+          }
+      }
+
+      /* check anti diag */
+      if ( x + y === this.dimensions - 1) {
+          for ( let i = 0; i < this.dimensions; i++) {
+              if ( this.board[i][( this.dimensions - 1 ) - i ] !== unit) {
+                  break;
+              }
+              if ( i === this.dimensions - 1 ) {
+                  unitWin = true;
+              }
+          }
+      }
+
+      if ( unitWin ) {
+          $('#msg').html('').html('<div class="alert alert-success"><strong>Game over!</strong> ' + unit.toUpperCase() + ' Win </div>');
+          this.gameOver = true;
+      }
+
+
+      return unitWin;
   }
+
 
   getRobotMove() {
 
@@ -108,6 +188,7 @@ export class GameComponent {
     });
     this.nextMoveUnit = 'X';
     this.waitingRobot = false;
+    this.gameOver = false;
     $('#msg').html('');
   }
 }
