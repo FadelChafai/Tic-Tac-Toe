@@ -2,25 +2,24 @@
 
 import {Injectable} from '@angular/core';
 import {Http, Headers, Response} from '@angular/http';
-import {IMove} from './move';
 import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
 import {AppSettings} from '../app.settings';
+import {Data} from "../model/data";
 
 @Injectable()
 
-export class MoveService {
+export class ApiService {
 
     constructor(private _http: Http) {}
 
-    getNextMove(board, unit): Observable<IMove> {
+    getData(param): Observable<Data[]> {
 
       const data = {
-        'board' : board,
-        'unit'  : unit
+        'param' : param,
       };
 
       const body = JSON.stringify(data);
@@ -30,12 +29,11 @@ export class MoveService {
       });
 
         return this._http
-            .post(
+            .get(
               AppSettings.API_ENDPOINT,
-              body,
               {headers: headers}
               )
-            .map((response: Response) => <IMove> response.json())
+            .map((response: Response) => <Data> response.json())
             .do(res => console.log(res))
             .catch(this.handleError);
 

@@ -13,6 +13,12 @@ $container['logger'] = function() {
     return $logger;
 };
 
+/** Logger **/
+$container['http'] = function() {
 
+    $http = new  GuzzleHttp\Client;
+
+    return $http;
+};
 
 

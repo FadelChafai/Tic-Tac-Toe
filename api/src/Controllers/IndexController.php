@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Services\Move\MoveService;
-use App\Services\Validator\BoardService;
 use \Slim\Http\Request as Request;
 use \Slim\Http\Response as Response;
 
@@ -38,19 +37,15 @@ class IndexController
     public function indexAction(Request $request, Response $response)
     {
 
-        $jsonData = [];
+        $data = [];
 
-        if ($request->isPost()) {
+        if ($request->isGet()) {
 
             try {
 
-                $data = $request->getParams();
+                $data = $this->moveService->getData();
 
-                BoardService::validateBoradParams($data);
-
-                $jsonData = $this->moveService->makeMove($data['board'], $data['unit']);
-
-                $this->container->logger->info( json_encode( $data['board']), $jsonData);
+                $this->container->logger->info(json_encode($data)); //
 
             } catch (\Exception $e) {
 
@@ -58,7 +53,7 @@ class IndexController
             }
         }
 
-        return $response->withJson($jsonData);
+        return $response->withJson($data);
     }
 
 

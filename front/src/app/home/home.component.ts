@@ -8,7 +8,7 @@ import {Component} from '@angular/core';
 
 export class HomeComponent {
 
-    pageTitle : string = 'Tic Tac Toe';
-    subTitle : string = 'Play the game';
+    pageTitle : string = 'API';
+    subTitle : string = 'Show data';
 
 }

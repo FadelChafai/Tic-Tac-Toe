@@ -6,7 +6,7 @@
  */
 $container[App\Controllers\IndexController::class] = function ($container) {
 
-    $moveService = new \App\Services\Move\MoveService();
+    $moveService = new \App\Services\Move\MoveService($container);
 
     return new \App\Controllers\IndexController($container, $moveService);
 };

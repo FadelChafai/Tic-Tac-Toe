@@ -8,5 +8,5 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  pageTitle = 'APP';
+  pageTitle = 'API';
 }
